@@ -14,6 +14,10 @@ app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json());
 app.use(cookieParser());
 
+app.get('/', (req,res) => {
+    res.json("Hello YI");
+})
+
 
 //endpoint to register
 app.post('/user/register', (req,res) => {
