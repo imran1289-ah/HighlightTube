@@ -4,20 +4,16 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const {User} = require('./model/user');
+const config = require('./config/key');
 
 //connection to mongoDB database
-mongoose.connect('mongodb://localhost:27017' , {useNewUrlParser:true})
+mongoose.connect(config.mongoURI , {useNewUrlParser:true})
     .then(() => console.log("Database connected"))
     .catch(err => console.error(err));
 
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json());
 app.use(cookieParser());
-
-app.get('/', (req,res) => {
-    res.json("Hello YI");
-})
-
 
 //endpoint to register
 app.post('/user/register', (req,res) => {
