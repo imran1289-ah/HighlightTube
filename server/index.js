@@ -26,4 +26,35 @@ app.post('/user/register', (req,res) => {
     })
 })
 
+//endpoint to login
+app.post('/user/login', (req,res) => {
+    User.findOne({email: req.body.email}, (error, user) => {
+        if(!user){
+            return res.json({
+                loginSuccess: false,
+                message: "Email not found"
+            })
+        }
+
+        user.comparePassword(req.body.password, (error, isMatch) => {
+            if(!isMatch){
+                return res.json({
+                    loginSuccess: false,
+                    message: "Wrong password ! Please try again"
+                })
+            }
+        })
+
+        user.generateToken((error, user) => {
+            if(error) return res.status(400).send(error);
+            res.cookie("x_auth", user.token)
+                .status(200)
+                .json({
+                    loginSuccess: true
+                })
+        })
+
+    })
+})
+
 app.listen(5000);
