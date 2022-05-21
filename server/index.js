@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const {User} = require('./model/user');
 const config = require('./config/key');
+const {auth} = require('./midleware/auth');
 
 //connection to mongoDB database
 mongoose.connect(config.mongoURI , {useNewUrlParser:true})
@@ -15,8 +16,22 @@ app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json());
 app.use(cookieParser());
 
+
+//endpoin for autenticatiom
+app.get('/user/auth', auth, (req,res) => {
+    res.status(200).json({
+        _id: req._id,
+        isAuth: true,
+        email:req.user.email,
+        name:req.user.name,
+        lastname: req.user.lastname,
+        role: req.user.role
+    })
+})
+
+
 //endpoint to register
-app.post('/user/register', (req,res) => {
+app.post('/user/register',  (req,res) => {
     const user = new User(req.body)
     user.save((err, userData) =>{
         if(err) return res.json ({success: false,err})
@@ -28,7 +43,7 @@ app.post('/user/register', (req,res) => {
 
 //endpoint to login
 app.post('/user/login', (req,res) => {
-    User.findOne({email: req.body.email}, (error, user) => {
+    User.findOne({email: req.body.email}, (err, user) => {
         if(!user){
             return res.json({
                 loginSuccess: false,
@@ -36,7 +51,7 @@ app.post('/user/login', (req,res) => {
             })
         }
 
-        user.comparePassword(req.body.password, (error, isMatch) => {
+        user.comparePassword(req.body.password, (err, isMatch) => {
             if(!isMatch){
                 return res.json({
                     loginSuccess: false,

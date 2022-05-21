@@ -37,10 +37,10 @@ userSchema.pre('save', function (next){
             }
 
             bcrypt.hash(user.password, salt, function(error, hash){
-                if(error){
-                    return next(error);
-                    user.password = hash
-                }
+                if(error) return next(error);
+                user.password = hash
+                next();
+                
             })    
         })
 
@@ -67,6 +67,21 @@ userSchema.methods.generateToken = function(cb) {
     user.save(function (error, user){
         if(error) return cb(error)
         cb(null, user);
+    })
+}
+
+userSchema.statics.findByToken = function (token, cb) {
+    var user = this;
+
+    jwt.verify(token, 'secret', function(err, decode){
+        user.findOne({
+            "_id":decode,
+            "token":token,
+            function(err,user){
+                if(err) return cb(err);
+                cb(null, user);
+            }
+        })
     })
 }
 
