@@ -41,6 +41,9 @@ const Item = styled.div`
   gap: 20px;
   cursor: pointer;
   padding: 7.5px 0px;
+  &:hover {
+    background-color: grey;
+  }
 `;
 
 const Hr = styled.div`
@@ -53,15 +56,11 @@ export const Menu = () => {
     <Container>
       <Wrapper>
         <Link to="/" style={{ textDecoration: "none", color: "inherit" }}>
-          <Logo>
-            <Img src={Icon}></Img>
-            HighlighTube
-          </Logo>
+          <Item>
+            <HomeIcon />
+            Home
+          </Item>
         </Link>
-        <Item>
-          <HomeIcon />
-          Home
-        </Item>
         <Hr></Hr>
         <Item>
           <SportsHockeyIcon></SportsHockeyIcon>Hockey

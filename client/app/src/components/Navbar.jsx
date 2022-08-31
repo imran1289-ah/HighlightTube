@@ -1,5 +1,7 @@
 import React from "react";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
+import Icon from "../image/logo.png";
 
 const Container = styled.div`
   position: sticky;
@@ -8,10 +10,22 @@ const Container = styled.div`
   height: 56px;
 `;
 
+const Img = styled.div`
+  height: 25px;
+`;
+
+const Logo = styled.h1`
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: bold;
+  color: white;
+`;
+
 const Wrapper = styled.div`
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: center;
   height: 100%;
   padding: 0px 20px;
   position: relative;
@@ -26,7 +40,7 @@ const Button = styled.button`
     font-weight: 500;
     cursor:pointer;
     display:flex
-    align-items:center; 
+    align-items:flex-end; 
     gap:5px;
 
 `;
@@ -35,7 +49,15 @@ export const Navbar = () => {
   return (
     <Container>
       <Wrapper>
-        <Button>LOGIN</Button>
+        <Logo>HighlighTube</Logo>
+        <Button>
+          <Link
+            to="/signin"
+            style={{ textDecoration: "none", color: "inherit" }}
+          >
+            LOGIN
+          </Link>
+        </Button>
       </Wrapper>
     </Container>
   );

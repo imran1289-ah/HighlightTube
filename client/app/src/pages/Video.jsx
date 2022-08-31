@@ -3,6 +3,7 @@ import styled from "styled-components";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import ThumbDownIcon from "@mui/icons-material/ThumbDown";
 import { Comments } from "../components/Comments";
+import Card from "../components/Card";
 
 const Container = styled.div`
   display: flex;
@@ -134,7 +135,12 @@ const Video = () => {
         <Comments></Comments>
       </Content>
 
-      <Recommendation>Recommendation</Recommendation>
+      <Recommendation>
+        <Card></Card>
+        <Card></Card>
+        <Card></Card>
+        <Card></Card>
+      </Recommendation>
     </Container>
   );
 };
