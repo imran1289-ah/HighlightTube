@@ -7,6 +7,7 @@ import SportsBasketballIcon from "@mui/icons-material/SportsBasketball";
 import SportsSoccerIcon from "@mui/icons-material/SportsSoccer";
 import SportsFootballIcon from "@mui/icons-material/SportsFootball";
 import SportsBaseballIcon from "@mui/icons-material/SportsBaseball";
+import { Link } from "react-router-dom";
 
 const Container = styled.div`
   flex: 1;
@@ -51,10 +52,12 @@ export const Menu = () => {
   return (
     <Container>
       <Wrapper>
-        <Logo>
-          <Img src={Icon}></Img>
-          HighlighTube
-        </Logo>
+        <Link to="/" style={{ textDecoration: "none", color: "inherit" }}>
+          <Logo>
+            <Img src={Icon}></Img>
+            HighlighTube
+          </Logo>
+        </Link>
         <Item>
           <HomeIcon />
           Home

@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 const Container = styled.div`
   width: 360px;
@@ -37,12 +38,14 @@ const Info = styled.div`
 
 const Card = () => {
   return (
-    <Container>
-      <Image src="https://cdn.vox-cdn.com/thumbor/ytC-ZCsT-G-M1Fscy7oZUeZE9X0=/1400x788/filters:format(png)/cdn.vox-cdn.com/uploads/chorus_asset/file/19725578/TheRinger_Top25NBAPlayers_2.png"></Image>
-      <Title>Basketball</Title>
-      <ChannelName>NBA</ChannelName>
-      <Info>1 358,000 views * 3 hours ago</Info>
-    </Container>
+    <Link to="/video/test" style={{ textDecoration: "none" }}>
+      <Container>
+        <Image src="https://cdn.vox-cdn.com/thumbor/ytC-ZCsT-G-M1Fscy7oZUeZE9X0=/1400x788/filters:format(png)/cdn.vox-cdn.com/uploads/chorus_asset/file/19725578/TheRinger_Top25NBAPlayers_2.png"></Image>
+        <Title>Basketball</Title>
+        <ChannelName>NBA</ChannelName>
+        <Info>1 358,000 views * 3 hours ago</Info>
+      </Container>
+    </Link>
   );
 };
 
