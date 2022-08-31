@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import ThumbDownIcon from "@mui/icons-material/ThumbDown";
+import { Comments } from "../components/Comments";
 
 const Container = styled.div`
   display: flex;
@@ -129,6 +130,8 @@ const Video = () => {
           </ChannelInfo>
           <Subscribe>SUBSCRIBE</Subscribe>
         </Channel>
+        <Hr></Hr>
+        <Comments></Comments>
       </Content>
 
       <Recommendation>Recommendation</Recommendation>
