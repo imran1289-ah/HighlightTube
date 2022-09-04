@@ -1,12 +1,20 @@
 # HighlightTube
 
-A video streaming service to post and watch your favourite sports highlights
+## What is it
+A video streaming service (similar to Youtube) for users to post and watch their favourite sports highlights (Basketball, Soccer, Hockey etc)
 
-Technologies
+## Technologies Used
 
-- React JavaScript
+- React
 - MongoDB
 - Express
 - NodeJS
 
-In progress
+## Screenshots
+
+In progress. Currently working on the Backend
+
+## How to run the application
+
+Avalaible soon
+
