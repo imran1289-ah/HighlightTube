@@ -3,7 +3,7 @@ import User from "../model/User.js";
 import Video from "../model/Video.js";
 
 export const addVideo = async (req, res, next) => {
-  const addedVideo = new addedVideo({ userID: req.user.id, ...req.body });
+  const addedVideo = new Video({ userId: req.user.id, ...req.body });
   try {
     const savedVideo = await addedVideo.save();
     res.status(200).json(savedVideo);
@@ -18,7 +18,7 @@ export const updateVideo = async (req, res, next) => {
     if (!video) {
       return next(createError(404, "Video does not exist"));
     }
-    if (req.user.id === video.userID) {
+    if (req.user.id === video.userId) {
       const updatedVideo = await Video.findByIdAndUpdate(
         req.params.id,
         {
@@ -43,7 +43,7 @@ export const deleteVideo = async (req, res, next) => {
     if (!video) {
       return next(createError(404, "Video does not exist"));
     }
-    if (req.user.id === video.userID) {
+    if (req.user.id === video.userId) {
       await Video.findByIdAndDelete(req.params.id);
       res.status(200).json("Video has been succesfully deleted");
     } else {
@@ -76,8 +76,16 @@ export const random = async (req, res, next) => {
 
 export const subbed = async (req, res, next) => {
   try {
-    const video = await Video.findById(req.params.id);
-    res.status(200).json(video);
+    const user = await User.findById(req.user.id);
+    const subscribedChannels = user.subscribedUsers;
+
+    const list = await Promise.all(
+      subscribedChannels.map(async (channelId) => {
+        return await Video.find({ userId: channelId });
+      })
+    );
+
+    res.status(200).json(list.flat().sort((a, b) => b.createdAt - a.createdAt));
   } catch (err) {
     next(err);
   }

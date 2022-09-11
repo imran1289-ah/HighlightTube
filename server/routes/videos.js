@@ -18,6 +18,6 @@ router.delete("/:id", verifyToken, deleteVideo);
 router.get("/find/:id", getVideo);
 router.put("/view/:id", addView);
 router.get("/random", random);
-router.get("/subscribed", subbed);
+router.get("/subscribed", verifyToken, subbed);
 
 export default router;
