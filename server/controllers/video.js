@@ -101,3 +101,24 @@ export const addView = async (req, res, next) => {
     next(err);
   }
 };
+
+export const getByTag = async (req, res, next) => {
+  const tags = req.query.tags.split(",");
+  try {
+    const videos = await Video.find({ tags: { $in: tags } }).limit(20);
+    res.status(200).json(videos);
+  } catch (err) {
+    next(err);
+  }
+};
+
+export const getBySearch = async (req, res, next) => {
+  try {
+    await Video.findByIdAndUpdate(req.params.id, {
+      $inc: { views: 1 },
+    });
+    res.status(200).json("+1 Views");
+  } catch (err) {
+    next(err);
+  }
+};

@@ -3,6 +3,8 @@ import {
   addVideo,
   addView,
   deleteVideo,
+  getBySearch,
+  getByTag,
   getVideo,
   random,
   subbed,
@@ -19,5 +21,7 @@ router.get("/find/:id", getVideo);
 router.put("/view/:id", addView);
 router.get("/random", random);
 router.get("/subscribed", verifyToken, subbed);
+router.get("/search", getBySearch);
+router.get("/tags", getByTag);
 
 export default router;
