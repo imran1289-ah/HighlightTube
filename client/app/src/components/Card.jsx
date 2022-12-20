@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 const Container = styled.div`
   width: 400px;
@@ -36,14 +37,24 @@ const Info = styled.div`
   color: white;
 `;
 
-const Card = () => {
+const Card = ({ video }) => {
+  const [channels, setChannels] = useState({});
+
+  useEffect(() => {
+    const fetchChannel = async () => {
+      const res = await axios.get(`/users/find/${video.userId}`);
+      setChannels(res.data);
+    };
+    fetchChannel();
+  }, [video.userId]);
+
   return (
     <Link to="/video/test" style={{ textDecoration: "none" }}>
       <Container>
-        <Image src="https://cdn.vox-cdn.com/thumbor/ytC-ZCsT-G-M1Fscy7oZUeZE9X0=/1400x788/filters:format(png)/cdn.vox-cdn.com/uploads/chorus_asset/file/19725578/TheRinger_Top25NBAPlayers_2.png"></Image>
-        <Title>Basketball</Title>
-        <ChannelName>NBA</ChannelName>
-        <Info>1 358,000 views * 3 hours ago</Info>
+        <Image src={video.imgUrl}></Image>
+        <Title>{video.title}</Title>
+        <ChannelName>{channels.name}</ChannelName>
+        <Info>{video.views} views</Info>
       </Container>
     </Link>
   );
