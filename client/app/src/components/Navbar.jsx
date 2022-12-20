@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import Icon from "../image/logo.png";
+import { useSelector } from "react-redux";
 
 const Container = styled.div`
   position: sticky;
@@ -46,10 +47,13 @@ const Button = styled.button`
 `;
 
 export const Navbar = () => {
+  const { currentUser } = useSelector((state) => state.user);
   return (
     <Container>
       <Wrapper>
-        <Logo>HighlighTube</Logo>
+        <Logo>
+          {currentUser ? "Welcome back " + currentUser.name : "HighlighTube"}
+        </Logo>
         <Button>
           <Link
             to="/signin"

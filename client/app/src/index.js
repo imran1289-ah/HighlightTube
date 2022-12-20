@@ -9,11 +9,17 @@ import { createStore, applyMiddleware } from "redux";
 import promiseMiddleware from "redux-promise";
 import ReduxThunk from "redux-thunk";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { persistor, store } from "./redux/store";
+import { PersistGate } from "redux-persist/lib/integration/react";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <App />
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        <App />
+      </PersistGate>
+    </Provider>
   </React.StrictMode>
 );
 
