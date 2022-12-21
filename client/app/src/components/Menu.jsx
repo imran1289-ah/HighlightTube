@@ -2,12 +2,10 @@ import React from "react";
 import styled from "styled-components";
 import Icon from "../image/logo.png";
 import HomeIcon from "@mui/icons-material/Home";
-import SportsHockeyIcon from "@mui/icons-material/SportsHockey";
-import SportsBasketballIcon from "@mui/icons-material/SportsBasketball";
-import SportsSoccerIcon from "@mui/icons-material/SportsSoccer";
-import SportsFootballIcon from "@mui/icons-material/SportsFootball";
-import SportsBaseballIcon from "@mui/icons-material/SportsBaseball";
+import VideoLibraryIcon from "@mui/icons-material/VideoLibrary";
+import UploadIcon from "@mui/icons-material/Upload";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const Container = styled.div`
   flex: 1;
@@ -52,6 +50,7 @@ const Hr = styled.div`
 `;
 
 export const Menu = () => {
+  const { currentUser } = useSelector((state) => state.user);
   return (
     <Container>
       <Wrapper>
@@ -61,22 +60,20 @@ export const Menu = () => {
             Home
           </Item>
         </Link>
+
         <Hr></Hr>
-        <Item>
-          <SportsHockeyIcon></SportsHockeyIcon>Hockey
-        </Item>
-        <Item>
-          <SportsBasketballIcon></SportsBasketballIcon>Basketball
-        </Item>
-        <Item>
-          <SportsSoccerIcon></SportsSoccerIcon>Soccer
-        </Item>
-        <Item>
-          <SportsFootballIcon></SportsFootballIcon>American Football
-        </Item>
-        <Item>
-          <SportsBaseballIcon></SportsBaseballIcon>Baseball
-        </Item>
+        {currentUser ? (
+          <div>
+            <Item>
+              <UploadIcon></UploadIcon>Upload videos
+            </Item>
+            <Item>
+              <VideoLibraryIcon></VideoLibraryIcon>My videos
+            </Item>
+          </div>
+        ) : (
+          ""
+        )}
       </Wrapper>
     </Container>
   );

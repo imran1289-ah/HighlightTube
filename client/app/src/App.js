@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Video from "./pages/Video";
 import SignIn from "./pages/SignIn";
+import { useSelector } from "react-redux";
 
 const Container = styled.div`
   display: flex;
@@ -18,6 +19,8 @@ const Main = styled.div`
 const Wrapper = styled.div``;
 
 function App() {
+  const { currentUser } = useSelector((state) => state.user);
+
   return (
     <div className="App">
       <Container>
@@ -30,7 +33,9 @@ function App() {
                 <Route path="/">
                   <Route index element={<Home />}></Route>
                   <Route path="signin" element={<SignIn />}></Route>
-                  <Route path="/video/test" element={<Video />}></Route>
+                  <Route path="video">
+                    <Route path=":id" element={<Video></Video>}></Route>
+                  </Route>
                 </Route>
               </Routes>
             </Wrapper>

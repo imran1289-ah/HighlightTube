@@ -4,11 +4,19 @@ import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import ThumbDownIcon from "@mui/icons-material/ThumbDown";
 import { Comments } from "../components/Comments";
 import Card from "../components/Card";
+import { useDispatch, useSelector } from "react-redux";
+import { useLocation } from "react-router-dom";
+import { useState } from "react";
+import { useEffect } from "react";
+import axios from "axios";
+import { fetchSuccess } from "../redux/videoSlice";
+import { subscription } from "../redux/userSlice";
 
 const Container = styled.div`
   display: flex;
   gap: 24px;
   background-color: #202020;
+  height: 100%;
 `;
 const Content = styled.div`
   flex: 5;
@@ -93,54 +101,80 @@ const Button = styled.div`
   cursor: pointer;
 `;
 
+const VideoFrame = styled.video`
+  nax-height: 720px;
+  width: 100%;
+  object-fit: cover;
+`;
+
 const Video = () => {
+  const { currentUser } = useSelector((state) => state.user);
+  const { currentVideo } = useSelector((state) => state.video);
+  const dispatch = useDispatch();
+
+  const path = useLocation().pathname.split("/")[2];
+  console.log(path);
+  const [channels, setChannels] = useState({});
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const videoRes = await axios.get(`/videos/find/${path}`);
+        const channelRes = await axios.get(
+          `/users/find/${videoRes.data.userId}`
+        );
+
+        setChannels(channelRes.data);
+        dispatch(fetchSuccess(videoRes.data));
+      } catch (err) {}
+    };
+    fetchData();
+  }, [path, dispatch]);
+
+  const handleSub = async () => {
+    currentUser.subscribedUsers.includes(channels._id)
+      ? await axios.put(`/users/unsub/${channels._id}`)
+      : await axios.put(`/users/sub/${channels._id}`);
+    dispatch(subscription(channels._id));
+  };
+
   return (
     <Container>
       <Content>
         <VideoWrapper>
-          <iframe
-            width="100%"
-            height="600"
-            src="https://www.youtube.com/embed/k3Vfj-e1Ma4"
-            title="YouTube video player"
-            frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen
-          ></iframe>
+          <VideoFrame src={currentVideo.videoUrl} />
         </VideoWrapper>
-        <Title>Test Video</Title>
+        <Title>{currentVideo.title}</Title>
         <Details>
-          <Info>10,258,005 views * July 12, 2022 </Info>
-          <Buttons>
-            <Button>
-              <ThumbUpIcon></ThumbUpIcon>1.2K
-            </Button>
-            <Button>
-              <ThumbDownIcon></ThumbDownIcon>3
-            </Button>
-          </Buttons>
+          <Info>{currentVideo.views}</Info>
         </Details>
         <Hr></Hr>
         <Channel>
           <ChannelInfo>
             <ChannelDetail>
-              <ChannelName>NBA</ChannelName>
-              <ChannelCounter>1,258,007 subscribers</ChannelCounter>
-              <Description>Recap of the 2022 NBA season</Description>
+              <ChannelName>{channels.name}</ChannelName>
+              <ChannelCounter>
+                {channels.subscribers} subscribers
+              </ChannelCounter>
+              <Description>{currentVideo.desc}</Description>
             </ChannelDetail>
           </ChannelInfo>
-          <Subscribe>SUBSCRIBE</Subscribe>
+          <Subscribe onClick={handleSub}>
+            {currentUser.subscribedUsers?.includes(channels._id)
+              ? "SUBSCRIBED"
+              : "SUBSCRIBE"}
+          </Subscribe>
         </Channel>
         <Hr></Hr>
         <Comments></Comments>
       </Content>
 
-      <Recommendation>
+      {/* <Recommendation>
         <Card></Card>
         <Card></Card>
         <Card></Card>
         <Card></Card>
-      </Recommendation>
+      </Recommendation> */}
     </Container>
   );
 };

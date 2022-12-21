@@ -8,6 +8,7 @@ const Container = styled.div`
   justify-content: space-between;
   flex-wrap: wrap;
   background-color: #202020;
+  height: 700px;
 `;
 
 const Home = ({ type }) => {
