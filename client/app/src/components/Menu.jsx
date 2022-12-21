@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import Icon from "../image/logo.png";
 import HomeIcon from "@mui/icons-material/Home";
@@ -6,6 +6,7 @@ import VideoLibraryIcon from "@mui/icons-material/VideoLibrary";
 import UploadIcon from "@mui/icons-material/Upload";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
+import Upload from "./Upload";
 
 const Container = styled.div`
   flex: 1;
@@ -50,31 +51,37 @@ const Hr = styled.div`
 `;
 
 export const Menu = () => {
+  const [open, setOpen] = useState(false);
   const { currentUser } = useSelector((state) => state.user);
-  return (
-    <Container>
-      <Wrapper>
-        <Link to="/" style={{ textDecoration: "none", color: "inherit" }}>
-          <Item>
-            <HomeIcon />
-            Home
-          </Item>
-        </Link>
 
-        <Hr></Hr>
-        {currentUser ? (
-          <div>
+  return (
+    <>
+      <Container>
+        <Wrapper>
+          <Link to="/" style={{ textDecoration: "none", color: "inherit" }}>
             <Item>
-              <UploadIcon></UploadIcon>Upload videos
+              <HomeIcon />
+              Home
             </Item>
-            <Item>
-              <VideoLibraryIcon></VideoLibraryIcon>My videos
-            </Item>
-          </div>
-        ) : (
-          ""
-        )}
-      </Wrapper>
-    </Container>
+          </Link>
+
+          <Hr></Hr>
+          {currentUser ? (
+            <div>
+              <Item>
+                <UploadIcon onClick={() => setOpen(true)}></UploadIcon>Upload
+                videos
+              </Item>
+              <Item>
+                <VideoLibraryIcon></VideoLibraryIcon>My videos
+              </Item>
+            </div>
+          ) : (
+            ""
+          )}
+        </Wrapper>
+      </Container>
+      {open && <Upload setOpen={setOpen} />}
+    </>
   );
 };

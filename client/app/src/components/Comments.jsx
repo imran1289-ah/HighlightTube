@@ -1,6 +1,9 @@
 import React from "react";
+import { useState } from "react";
+import { useEffect } from "react";
 import styled from "styled-components";
 import { Comment } from "./Comment";
+import axios from "axios";
 
 const Container = styled.div``;
 
@@ -19,15 +22,27 @@ const Input = styled.input`
   width: 100%;
 `;
 
-export const Comments = () => {
+export const Comments = ({ videoId }) => {
+  const [comments, setComments] = useState([]);
+
+  useEffect(() => {
+    const fetchComments = async () => {
+      try {
+        const res = await axios.get(`/comments/${videoId}`);
+        setComments(res.data);
+      } catch (err) {}
+    };
+    fetchComments();
+  }, [videoId]);
+
   return (
     <Container>
       <NewComment>
         <Input placeholder="Add a comment "></Input>
       </NewComment>
-      <Comment />
-      <Comment />
-      <Comment />
+      {comments.map((comment) => (
+        <Comment key={comment._id} comment={comment}></Comment>
+      ))}
     </Container>
   );
 };

@@ -1,4 +1,5 @@
-import React from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -29,14 +30,22 @@ const Text = styled.span`
   color: white;
 `;
 
-export const Comment = () => {
+export const Comment = ({ comment }) => {
+  const [channels, setChannels] = useState({});
+
+  useEffect(() => {
+    const fetchComment = async () => {
+      const res = await axios.get(`/users/find/${comment.userId}`);
+      setChannels(res.data);
+    };
+    fetchComment();
+  }, [comment.userId]);
+
   return (
     <Container>
       <Details>
-        <Name>
-          Alex Wayne <Date>2 days ago</Date>
-        </Name>
-        <Text>Nice Video ! Please post more highlights</Text>
+        <Name>{channels.name}</Name>
+        <Text>{comment.desc}</Text>
       </Details>
     </Container>
   );
