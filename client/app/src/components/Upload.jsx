@@ -1,4 +1,7 @@
+import axios from "axios";
 import React from "react";
+import { useState } from "react";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -47,16 +50,74 @@ const Button = styled.button`
 `;
 
 const Upload = ({ setOpen }) => {
+  const { currentUser } = useSelector((state) => state.user);
+  const [video, setVideo] = useState({
+    userId: currentUser._id,
+    title: "",
+    desc: "",
+    imgUrl: "",
+    videoUrl: "",
+  });
+
+  const handleUpload = async (e) => {
+    e.preventDefault();
+
+    try {
+      const res = await axios.post("videos", {
+        title: video.title,
+        desc: video.title,
+        imgUrl: video.imgUrl,
+        videoUrl: video.videoUrl,
+        views: 0,
+        tags: [],
+        likes: [],
+        dislikes: [],
+      });
+    } catch (err) {}
+    alert("Video Uploaded Succesfully");
+  };
+
+  function handle(e) {
+    const newvideo = { ...video };
+    newvideo[e.target.id] = e.target.value;
+    setVideo(newvideo);
+    console.log(newvideo);
+  }
+
   return (
     <Container>
       <Wrapper>
         <Close onClick={() => setOpen()}>X</Close>
         <Title>Upload a new video</Title>
-        <input type="text" placeholder="Enter title"></input>
-        <input type="text" placeholder="Enter video URL (embedded URL)"></input>
-        <input type="text" placeholder="Enter thumbnail URL"></input>
-        <input type="text" placeholder="Enter description"></input>
-        <Button>Upload</Button>
+        <input
+          onChange={(e) => handle(e)}
+          type="text"
+          id="title"
+          value={video.text}
+          placeholder="Enter title"
+        ></input>
+        <input
+          onChange={(e) => handle(e)}
+          type="text"
+          id="videoUrl"
+          placeholder="Enter video URL (embedded URL)"
+          value={video.videoUrl}
+        ></input>
+        <input
+          onChange={(e) => handle(e)}
+          type="text"
+          id="imgUrl"
+          placeholder="Enter thumbnail URL"
+          value={video.imgUrl}
+        ></input>
+        <input
+          onChange={(e) => handle(e)}
+          type="text"
+          id="desc"
+          placeholder="Enter description"
+          value={video.desc}
+        ></input>
+        <Button onClick={(e) => handleUpload(e)}>Upload</Button>
       </Wrapper>
     </Container>
   );
