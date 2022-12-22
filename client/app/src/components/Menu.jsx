@@ -5,8 +5,12 @@ import HomeIcon from "@mui/icons-material/Home";
 import VideoLibraryIcon from "@mui/icons-material/VideoLibrary";
 import UploadIcon from "@mui/icons-material/Upload";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Upload from "./Upload";
+import PersonIcon from "@mui/icons-material/Person";
+import LogoutIcon from "@mui/icons-material/Logout";
+import { logout } from "../redux/userSlice";
+import LoginIcon from "@mui/icons-material/Login";
 
 const Container = styled.div`
   flex: 1;
@@ -53,6 +57,17 @@ const Hr = styled.div`
 export const Menu = () => {
   const [open, setOpen] = useState(false);
   const { currentUser } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
+
+  const handleLogout = async (e) => {
+    e.preventDefault();
+    try {
+      dispatch(logout());
+      alert("You have logged out of your account");
+    } catch (err) {
+      alert("error loggin out. Please try again!");
+    }
+  };
 
   return (
     <>
@@ -69,6 +84,15 @@ export const Menu = () => {
           {currentUser ? (
             <div>
               <Item>
+                <PersonIcon></PersonIcon>
+                {currentUser.name}
+              </Item>
+              <Item>
+                <LogoutIcon onClick={handleLogout}></LogoutIcon>
+                Logout
+              </Item>
+
+              <Item>
                 <UploadIcon onClick={() => setOpen(true)}></UploadIcon>Upload
                 videos
               </Item>
@@ -77,7 +101,15 @@ export const Menu = () => {
               </Item>
             </div>
           ) : (
-            ""
+            <Item>
+              <Link
+                to="/signin"
+                style={{ textDecoration: "none", color: "inherit" }}
+              >
+                <LoginIcon></LoginIcon>
+                Login
+              </Link>
+            </Item>
           )}
         </Wrapper>
       </Container>

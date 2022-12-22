@@ -56,9 +56,23 @@ const SignIn = () => {
     try {
       const res = await axios.post("auth/signin", { name, password });
       dispatch(loginSuccess(res.data));
+      alert("Welcome back");
     } catch (err) {
       dispatch(loginFailure());
     }
+  };
+
+  const handleRegister = async (e) => {
+    e.preventDefault();
+    dispatch(loginStart());
+    try {
+      const res = await axios.post("auth/signup", { name, email, password });
+      const res1 = await axios.post("auth/signin", { name, password });
+      dispatch(loginSuccess(res1.data));
+      alert(
+        "Your account has been created sucesfully, Continue Watching Highlights !!"
+      );
+    } catch (err) {}
   };
 
   return (
@@ -67,6 +81,7 @@ const SignIn = () => {
         <Title>Sign In</Title>
         <Input
           placeholder="username"
+          id="name"
           onChange={(e) => setName(e.target.value)}
         ></Input>
         <Input
@@ -89,7 +104,7 @@ const SignIn = () => {
           type="password"
           onChange={(e) => setPassword(e.target.value)}
         ></Input>
-        <Button>Register</Button>
+        <Button onClick={handleRegister}>Register</Button>
       </Wrapper>
     </Container>
   );

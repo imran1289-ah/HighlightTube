@@ -51,17 +51,7 @@ export const Navbar = () => {
   return (
     <Container>
       <Wrapper>
-        <Logo>
-          {currentUser ? "Welcome back " + currentUser.name : "HighlighTube"}
-        </Logo>
-        <Button>
-          <Link
-            to="/signin"
-            style={{ textDecoration: "none", color: "inherit" }}
-          >
-            LOGIN
-          </Link>
-        </Button>
+        <Logo>HighlighTube</Logo>
       </Wrapper>
     </Container>
   );
