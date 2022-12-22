@@ -113,12 +113,13 @@ const Video = () => {
   const dispatch = useDispatch();
 
   const path = useLocation().pathname.split("/")[2];
-  console.log(path);
+
   const [channels, setChannels] = useState({});
 
   useEffect(() => {
     const fetchData = async () => {
       try {
+        const videoView = await axios.put(`/videos/view/${path}`);
         const videoRes = await axios.get(`/videos/find/${path}`);
         const channelRes = await axios.get(
           `/users/find/${videoRes.data.userId}`
@@ -137,6 +138,10 @@ const Video = () => {
       : await axios.put(`/users/sub/${channels._id}`);
     dispatch(subscription(channels._id));
   };
+
+  function notSubbed() {
+    alert("Please login or create an account to subscribe to this channel");
+  }
 
   return (
     <Container>
@@ -167,11 +172,15 @@ const Video = () => {
               <Description>{currentVideo.desc}</Description>
             </ChannelDetail>
           </ChannelInfo>
-          <Subscribe onClick={handleSub}>
-            {currentUser.subscribedUsers?.includes(channels._id)
-              ? "SUBSCRIBED"
-              : "SUBSCRIBE"}
-          </Subscribe>
+          {currentUser ? (
+            <Subscribe onClick={handleSub}>
+              {currentUser.subscribedUsers?.includes(channels._id)
+                ? "SUBSCRIBED"
+                : "SUBSCRIBE"}
+            </Subscribe>
+          ) : (
+            <Subscribe onClick={notSubbed}>SUBSCRIBE</Subscribe>
+          )}
         </Channel>
         <Hr></Hr>
         <Comments videoId={currentVideo._id}></Comments>
