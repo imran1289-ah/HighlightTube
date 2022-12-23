@@ -4,13 +4,14 @@ import Icon from "../image/logo.png";
 import HomeIcon from "@mui/icons-material/Home";
 import VideoLibraryIcon from "@mui/icons-material/VideoLibrary";
 import UploadIcon from "@mui/icons-material/Upload";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Upload from "./Upload";
 import PersonIcon from "@mui/icons-material/Person";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { logout } from "../redux/userSlice";
 import LoginIcon from "@mui/icons-material/Login";
+import { useNavigate } from "react-router-dom";
 
 const Container = styled.div`
   flex: 1;
@@ -58,12 +59,14 @@ export const Menu = () => {
   const [open, setOpen] = useState(false);
   const { currentUser } = useSelector((state) => state.user);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleLogout = async (e) => {
     e.preventDefault();
     try {
       dispatch(logout());
       alert("You have logged out of your account");
+      navigate("/");
     } catch (err) {
       alert("error loggin out. Please try again!");
     }
@@ -83,10 +86,15 @@ export const Menu = () => {
           <Hr></Hr>
           {currentUser ? (
             <div>
-              <Item>
-                <PersonIcon></PersonIcon>
-                {currentUser.name}
-              </Item>
+              <Link
+                to="/editprofile"
+                style={{ textDecoration: "none", color: "inherit" }}
+              >
+                <Item>
+                  <PersonIcon></PersonIcon>
+                  {currentUser.name}
+                </Item>
+              </Link>
               <Item>
                 <LogoutIcon onClick={handleLogout}></LogoutIcon>
                 Logout

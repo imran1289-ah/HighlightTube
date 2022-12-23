@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { loginFailure, loginStart, loginSuccess } from "../redux/userSlice";
 import { useNavigate } from "react-router-dom";
@@ -46,55 +46,50 @@ const Button = styled.button`
   background-color: grey;
 `;
 
-const SignIn = () => {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+const EditProfile = () => {
+  const { currentUser } = useSelector((state) => state.user);
+  const [name, setName] = useState({
+    name: currentUser.name,
+  });
+  const [email, setEmail] = useState({
+    email: currentUser.email,
+  });
+  const [password, setPassword] = useState({
+    password: currentUser.password,
+  });
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const handleLogin = async (e) => {
+  const handleUpdate = async (e) => {
     e.preventDefault();
     dispatch(loginStart());
-    try {
-      const res = await axios.post("auth/signin", { name, password });
-      dispatch(loginSuccess(res.data));
-      alert("Welcome back");
-      navigate("/");
-    } catch (err) {
-      dispatch(loginFailure());
-    }
-  };
+    if (
+      document.getElementById("pass1").value !==
+      document.getElementById("pass2").value
+    ) {
+      alert("Password did not match. Please try again");
 
-  const handleRegister = async (e) => {
-    e.preventDefault();
-    dispatch(loginStart());
+      return;
+    }
+
     try {
-      const res = await axios.post("auth/signup", { name, email, password });
+      const res = await axios.put(`users/${currentUser._id}`, {
+        name,
+        email,
+        password,
+      });
+
+      alert("Profile Updated Succesfully");
       const res1 = await axios.post("auth/signin", { name, password });
       dispatch(loginSuccess(res1.data));
-      alert(
-        "Your account has been created sucesfully, Continue Watching Highlights !!"
-      );
+      navigate("/");
     } catch (err) {}
   };
 
   return (
     <Container>
       <Wrapper>
-        <Title>Sign In</Title>
-        <Input
-          placeholder="username"
-          id="name"
-          onChange={(e) => setName(e.target.value)}
-        ></Input>
-        <Input
-          placeholder="password"
-          type="password"
-          onChange={(e) => setPassword(e.target.value)}
-        ></Input>
-        <Button onClick={handleLogin}>Login</Button>
-        <Title>Join HighlighTube</Title>
+        <Title>Update Profile</Title>
         <Input
           placeholder="username"
           onChange={(e) => setName(e.target.value)}
@@ -106,12 +101,18 @@ const SignIn = () => {
         <Input
           placeholder="password"
           type="password"
+          id="pass1"
           onChange={(e) => setPassword(e.target.value)}
         ></Input>
-        <Button onClick={handleRegister}>Register</Button>
+        <Input
+          placeholder="Enter password again"
+          type="password"
+          id="pass2"
+        ></Input>
+        <Button onClick={handleUpdate}>Update</Button>
       </Wrapper>
     </Container>
   );
 };
 
-export default SignIn;
+export default EditProfile;

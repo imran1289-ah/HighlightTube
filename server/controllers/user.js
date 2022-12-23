@@ -1,9 +1,15 @@
 import { createError } from "../error.js";
 import User from "../model/User.js";
 import Video from "../model/Video.js";
+import bcrypt from "bcryptjs";
 
 export const update = async (req, res, next) => {
   if (req.params.id === req.user.id) {
+    const salt = bcrypt.genSaltSync(10);
+    const hash = bcrypt.hashSync(req.body.password, salt);
+
+    req.body.password = hash;
+
     try {
       const updatedUser = await User.findByIdAndUpdate(
         req.params.id,

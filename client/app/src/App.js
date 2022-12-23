@@ -7,6 +7,7 @@ import Home from "./pages/Home";
 import Video from "./pages/Video";
 import SignIn from "./pages/SignIn";
 import { useSelector } from "react-redux";
+import EditProfile from "./pages/EditProfile";
 
 const Container = styled.div`
   display: flex;
@@ -36,6 +37,10 @@ function App() {
                   <Route path="video">
                     <Route path=":id" element={<Video></Video>}></Route>
                   </Route>
+                  <Route
+                    path="editprofile"
+                    element={<EditProfile></EditProfile>}
+                  ></Route>
                 </Route>
               </Routes>
             </Wrapper>
