@@ -8,6 +8,8 @@ import Video from "./pages/Video";
 import SignIn from "./pages/SignIn";
 import { useSelector } from "react-redux";
 import EditProfile from "./pages/EditProfile";
+import EditVideo from "./pages/EditVideo";
+import EditSingleVideo from "./pages/EditSingleVideo";
 
 const Container = styled.div`
   display: flex;
@@ -40,6 +42,10 @@ function App() {
                   <Route
                     path="editprofile"
                     element={<EditProfile></EditProfile>}
+                  ></Route>
+                  <Route
+                    path="editvideo"
+                    element={<EditVideo></EditVideo>}
                   ></Route>
                 </Route>
               </Routes>

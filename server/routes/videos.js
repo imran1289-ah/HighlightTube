@@ -5,6 +5,7 @@ import {
   deleteVideo,
   getBySearch,
   getByTag,
+  getUserVideos,
   getVideo,
   random,
   subbed,
@@ -23,5 +24,6 @@ router.get("/random", random);
 router.get("/subscribed", verifyToken, subbed);
 router.get("/search", getBySearch);
 router.get("/tags", getByTag);
+router.get("/uservideos/:userId", getUserVideos);
 
 export default router;

@@ -105,7 +105,15 @@ export const Menu = () => {
                 videos
               </Item>
               <Item>
-                <VideoLibraryIcon></VideoLibraryIcon>My videos
+                <Link
+                  to="/editvideo"
+                  style={{ textDecoration: "none", color: "inherit" }}
+                >
+                  <Item>
+                    <VideoLibraryIcon></VideoLibraryIcon>
+                    My videos
+                  </Item>
+                </Link>
               </Item>
             </div>
           ) : (
@@ -114,8 +122,10 @@ export const Menu = () => {
                 to="/signin"
                 style={{ textDecoration: "none", color: "inherit" }}
               >
-                <LoginIcon></LoginIcon>
-                Login
+                <Item>
+                  <LoginIcon></LoginIcon>
+                  Login
+                </Item>
               </Link>
             </Item>
           )}
