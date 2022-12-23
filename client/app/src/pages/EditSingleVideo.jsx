@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { loginFailure, loginStart, loginSuccess } from "../redux/userSlice";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const Container = styled.div`
   display: flex;
@@ -45,40 +45,43 @@ const Button = styled.button`
   cursor: pointer;
   background-color: grey;
 `;
-
 const EditSingleVideo = () => {
   const { currentUser } = useSelector((state) => state.user);
-  const { currentVideo } = useSelector((state) => state.user);
-  const [title, setTitle] = useState({
-    name: currentVideo.title,
-  });
-  const [description, setDescription] = useState({
-    email: currentVideo.description,
-  });
+  const [title, setTitle] = useState({});
+  const [desc, setDescription] = useState({});
+  const path = useLocation().pathname.split("/")[1];
+
+  const navigate = useNavigate();
 
   const handleUpdate = async (e) => {
     e.preventDefault();
 
     try {
+      const res = await axios.put(`videos/${path}`, {
+        title,
+        desc,
+      });
+
+      alert("Video Updated Succesfully");
+      navigate("/editvideo");
     } catch (err) {}
   };
 
   return (
-    // <Container>
-    //   <Wrapper>
-    //     <Title>Edit Video</Title>
-    //     <Input
-    //       placeholder="title"
-    //       onChange={(e) => setTitle(e.target.value)}
-    //     ></Input>
-    //     <Input
-    //       placeholder="description"
-    //       onChange={(e) => setDescription(e.target.value)}
-    //     ></Input>
-    //     <Button onClick={handleUpdate}>Update</Button>
-    //   </Wrapper>
-    // </Container>
-    <div>Yo</div>
+    <Container>
+      <Wrapper>
+        <Title>Update Video</Title>
+        <Input
+          placeholder="title"
+          onChange={(e) => setTitle(e.target.value)}
+        ></Input>
+        <Input
+          placeholder="description"
+          onChange={(e) => setDescription(e.target.value)}
+        ></Input>
+        <Button onClick={handleUpdate}>Update</Button>
+      </Wrapper>
+    </Container>
   );
 };
 

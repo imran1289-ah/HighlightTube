@@ -64,7 +64,12 @@ const EditVideo = () => {
                 </TableCell>
                 <TableCell>{video.desc}</TableCell>
                 <TableCell>
-                  <Button variant="contained">Edit</Button>
+                  <Link
+                    to={`/${video._id}`}
+                    style={{ textDecoration: "none", color: "inherit" }}
+                  >
+                    <Button variant="contained">Edit</Button>
+                  </Link>
 
                   <Button
                     variant="contained"

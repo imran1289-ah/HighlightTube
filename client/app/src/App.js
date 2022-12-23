@@ -47,6 +47,12 @@ function App() {
                     path="editvideo"
                     element={<EditVideo></EditVideo>}
                   ></Route>
+                  <Route path="">
+                    <Route
+                      path=":id"
+                      element={<EditSingleVideo></EditSingleVideo>}
+                    ></Route>
+                  </Route>
                 </Route>
               </Routes>
             </Wrapper>
