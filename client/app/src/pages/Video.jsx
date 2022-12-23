@@ -155,6 +155,10 @@ const Video = () => {
     alert("Please login or create an account to subscribe to this channel");
   }
 
+  function notLiked() {
+    alert("Please login or create an account to like/dislike this video");
+  }
+
   return (
     <Container>
       <Content>
@@ -173,22 +177,36 @@ const Video = () => {
         <Details>
           <Info>{currentVideo.views} views</Info>
           <Buttons>
-            <Button onClick={handleLike}>
-              {currentVideo.likes?.includes(currentUser._id) ? (
-                <FavoriteIcon />
-              ) : (
-                <FavoriteBorderIcon />
-              )}{" "}
-              {currentVideo.likes?.length}
-            </Button>
+            {currentUser ? (
+              <Button onClick={handleLike}>
+                {currentVideo.likes?.includes(currentUser._id) ? (
+                  <FavoriteIcon />
+                ) : (
+                  <FavoriteBorderIcon />
+                )}{" "}
+                {currentVideo.likes?.length}
+              </Button>
+            ) : (
+              <Button>
+                {currentVideo.likes?.length}
+                <FavoriteIcon onClick={notLiked} />
+              </Button>
+            )}
 
-            <Button onClick={handleDislike}>
-              {currentVideo.dislikes?.includes(currentUser?._id) ? (
-                <ThumbDownIcon />
-              ) : (
-                <ThumbDownOffAltOutlinedIcon />
-              )}{" "}
-            </Button>
+            {currentUser ? (
+              <Button onClick={handleDislike}>
+                {currentVideo.dislikes?.includes(currentUser?._id) ? (
+                  <ThumbDownIcon />
+                ) : (
+                  <ThumbDownOffAltOutlinedIcon />
+                )}{" "}
+              </Button>
+            ) : (
+              <Button>
+                {currentVideo.dislikes}
+                <ThumbDownIcon onClick={notLiked} />
+              </Button>
+            )}
           </Buttons>
         </Details>
         <Hr></Hr>
