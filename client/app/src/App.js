@@ -10,6 +10,7 @@ import { useSelector } from "react-redux";
 import EditProfile from "./pages/EditProfile";
 import EditVideo from "./pages/EditVideo";
 import EditSingleVideo from "./pages/EditSingleVideo";
+import SubscribedChannels from "./pages/SubscribedChannels";
 
 const Container = styled.div`
   display: flex;
@@ -53,6 +54,10 @@ function App() {
                       element={<EditSingleVideo></EditSingleVideo>}
                     ></Route>
                   </Route>
+                  <Route
+                    path="subs"
+                    element={<SubscribedChannels></SubscribedChannels>}
+                  ></Route>
                 </Route>
               </Routes>
             </Wrapper>

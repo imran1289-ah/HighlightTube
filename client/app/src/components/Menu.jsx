@@ -12,6 +12,7 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import { logout } from "../redux/userSlice";
 import LoginIcon from "@mui/icons-material/Login";
 import { useNavigate } from "react-router-dom";
+import SubscriptionsIcon from "@mui/icons-material/Subscriptions";
 
 const Container = styled.div`
   flex: 1;
@@ -115,6 +116,15 @@ export const Menu = () => {
                   </Item>
                 </Link>
               </Item>
+              <Link
+                to="/subs"
+                style={{ textDecoration: "none", color: "inherit" }}
+              >
+                <Item>
+                  <SubscriptionsIcon></SubscriptionsIcon>
+                  My subscribed channels
+                </Item>
+              </Link>
             </div>
           ) : (
             <Item>
