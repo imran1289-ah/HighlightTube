@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import ThumbDownIcon from "@mui/icons-material/ThumbDown";
 import { Comments } from "../components/Comments";
 import Card from "../components/Card";
@@ -9,8 +8,11 @@ import { useLocation } from "react-router-dom";
 import { useState } from "react";
 import { useEffect } from "react";
 import axios from "axios";
-import { fetchSuccess } from "../redux/videoSlice";
+import { dislike, fetchSuccess, like } from "../redux/videoSlice";
 import { subscription } from "../redux/userSlice";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import ThumbDownOffAltOutlinedIcon from "@mui/icons-material/ThumbDownOffAltOutlined";
 
 const Container = styled.div`
   display: flex;
@@ -139,6 +141,16 @@ const Video = () => {
     dispatch(subscription(channels._id));
   };
 
+  const handleLike = async () => {
+    await axios.put(`/users/like/${currentVideo._id}`);
+    dispatch(like(currentUser._id));
+  };
+
+  const handleDislike = async () => {
+    await axios.put(`/users/dislike/${currentVideo._id}`);
+    dispatch(dislike(currentUser._id));
+  };
+
   function notSubbed() {
     alert("Please login or create an account to subscribe to this channel");
   }
@@ -160,6 +172,24 @@ const Video = () => {
         <Title>{currentVideo.title}</Title>
         <Details>
           <Info>{currentVideo.views} views</Info>
+          <Buttons>
+            <Button onClick={handleLike}>
+              {currentVideo.likes?.includes(currentUser._id) ? (
+                <FavoriteIcon />
+              ) : (
+                <FavoriteBorderIcon />
+              )}{" "}
+              {currentVideo.likes?.length}
+            </Button>
+
+            <Button onClick={handleDislike}>
+              {currentVideo.dislikes?.includes(currentUser?._id) ? (
+                <ThumbDownIcon />
+              ) : (
+                <ThumbDownOffAltOutlinedIcon />
+              )}{" "}
+            </Button>
+          </Buttons>
         </Details>
         <Hr></Hr>
         <Channel>
