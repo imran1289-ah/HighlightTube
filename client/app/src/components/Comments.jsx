@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import styled from "styled-components";
 import { Comment } from "./Comment";
 import axios from "axios";
+import { useSelector } from "react-redux";
 
 const Container = styled.div``;
 
@@ -23,6 +24,7 @@ const Input = styled.input`
 `;
 
 export const Comments = ({ videoId }) => {
+  const { currentUser } = useSelector((state) => state.user);
   const [comments, setComments] = useState([]);
 
   useEffect(() => {
@@ -38,7 +40,8 @@ export const Comments = ({ videoId }) => {
   return (
     <Container>
       <NewComment>
-        <Input placeholder="Add a comment "></Input>
+        <Input placeholder="Add a comment"></Input>
+        <button onClick>Send comment</button>
       </NewComment>
       {comments.map((comment) => (
         <Comment key={comment._id} comment={comment}></Comment>
