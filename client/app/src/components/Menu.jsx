@@ -63,7 +63,6 @@ const Image = styled.img`
 `;
 
 export const Menu = () => {
-  const [open, setOpen] = useState(false);
   const { currentUser } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -106,11 +105,14 @@ export const Menu = () => {
                 <LogoutIcon onClick={handleLogout}></LogoutIcon>
                 Logout
               </Item>
-
-              <Item>
-                <UploadIcon onClick={() => setOpen(true)}></UploadIcon>Upload
-                videos
-              </Item>
+              <Link
+                to="/upload"
+                style={{ textDecoration: "none", color: "inherit" }}
+              >
+                <Item>
+                  <UploadIcon></UploadIcon>Upload videos
+                </Item>
+              </Link>
               <Item>
                 <Link
                   to="/editvideo"
@@ -147,7 +149,6 @@ export const Menu = () => {
           )}
         </Wrapper>
       </Container>
-      {open && <Upload setOpen={setOpen} />}
     </>
   );
 };

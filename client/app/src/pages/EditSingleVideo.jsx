@@ -4,47 +4,33 @@ import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { loginFailure, loginStart, loginSuccess } from "../redux/userSlice";
 import { useLocation, useNavigate } from "react-router-dom";
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
 
 const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
   height: calc(100vh - 56px);
-  background-color: #202020;
-  color: white;
+  background-color: white;
+  color: black;
 `;
 
 const Wrapper = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
-  background-color: #202020;
+  background-color: white;
   padding: 20px 50px;
-  border: 1px solid white;
+  border: 1px solid black;
   gap: 10px;
-  color: white;
+  color: black;
 `;
 
 const Title = styled.h1`
   font-size: 24px;
 `;
 
-const Input = styled.input`
-  border: 1px solid white;
-  border-radius: 3px;
-  padding: 10px;
-  background-color: transparent;
-  color: white;
-`;
-
-const Button = styled.button`
-  border-radius: 3px;
-  border: none;
-  padding: 10px 20px;
-  font-weight: 500;
-  cursor: pointer;
-  background-color: grey;
-`;
 const EditSingleVideo = () => {
   const { currentUser } = useSelector((state) => state.user);
   const [title, setTitle] = useState({});
@@ -71,15 +57,29 @@ const EditSingleVideo = () => {
     <Container>
       <Wrapper>
         <Title>Update Video</Title>
-        <Input
+        {/* <Input
           placeholder="title"
           onChange={(e) => setTitle(e.target.value)}
-        ></Input>
-        <Input
+        ></Input> */}
+        <TextField
+          id="outlined-basic"
+          label="Title"
+          variant="outlined"
+          onChange={(e) => setTitle(e.target.value)}
+        />
+        {/* <Input
           placeholder="description"
           onChange={(e) => setDescription(e.target.value)}
-        ></Input>
-        <Button onClick={handleUpdate}>Update</Button>
+        ></Input> */}
+        <TextField
+          id="outlined-basic"
+          label="Description"
+          variant="outlined"
+          onChange={(e) => setDescription(e.target.value)}
+        />
+        <Button variant="contained" onClick={handleUpdate}>
+          Update
+        </Button>
       </Wrapper>
     </Container>
   );

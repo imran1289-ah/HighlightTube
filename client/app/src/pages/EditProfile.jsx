@@ -4,13 +4,15 @@ import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { loginFailure, loginStart, loginSuccess } from "../redux/userSlice";
 import { useNavigate } from "react-router-dom";
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
 
 const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
   height: calc(100vh - 56px);
-  background-color: #202020;
+  background-color: white;
   color: white;
 `;
 
@@ -18,32 +20,16 @@ const Wrapper = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
-  background-color: #202020;
+  background-color: white;
   padding: 20px 50px;
-  border: 1px solid white;
+  border: 1px solid black;
   gap: 10px;
   color: white;
 `;
 
 const Title = styled.h1`
   font-size: 24px;
-`;
-
-const Input = styled.input`
-  border: 1px solid white;
-  border-radius: 3px;
-  padding: 10px;
-  background-color: transparent;
-  color: white;
-`;
-
-const Button = styled.button`
-  border-radius: 3px;
-  border: none;
-  padding: 10px 20px;
-  font-weight: 500;
-  cursor: pointer;
-  background-color: grey;
+  color: black;
 `;
 
 const EditProfile = () => {
@@ -90,26 +76,55 @@ const EditProfile = () => {
     <Container>
       <Wrapper>
         <Title>Update Profile</Title>
-        <Input
+        {/* <Input
           placeholder="username"
           onChange={(e) => setName(e.target.value)}
-        ></Input>
-        <Input
+        ></Input> */}
+        <TextField
+          id="outlined-basic"
+          label="username"
+          variant="outlined"
+          onChange={(e) => setName(e.target.value)}
+        />
+        {/* <Input
           placeholder="email"
           onChange={(e) => setEmail(e.target.value)}
-        ></Input>
+        ></Input> */}
+        <TextField
+          id="outlined-basic"
+          label="email"
+          variant="outlined"
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        {/*         
         <Input
           placeholder="password"
           type="password"
           id="pass1"
           onChange={(e) => setPassword(e.target.value)}
-        ></Input>
-        <Input
+        ></Input> */}
+        <TextField
+          label="password"
+          variant="outlined"
+          type="password"
+          id="pass1"
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        {/* <Input
           placeholder="Enter password again"
           type="password"
           id="pass2"
-        ></Input>
-        <Button onClick={handleUpdate}>Update</Button>
+        ></Input> */}
+        <TextField
+          label="Enter password again"
+          variant="outlined"
+          type="password"
+          id="pass2"
+        />
+
+        <Button variant="contained" onClick={handleUpdate}>
+          Update
+        </Button>
       </Wrapper>
     </Container>
   );

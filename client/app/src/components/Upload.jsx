@@ -3,50 +3,32 @@ import React from "react";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
+import { useNavigate } from "react-router-dom";
 
 const Container = styled.div`
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-  background-color: #000000a7;
   display: flex;
   align-items: center;
   justify-content: center;
+  height: calc(100vh - 56px);
+  background-color: #fafafa;
+  color: black;
 `;
 
 const Wrapper = styled.div`
-  width: 600px;
-  height: 600px;
-  background-color: #202020;
-  color: white;
-  padding: 20px;
   display: flex;
+  align-items: center;
   flex-direction: column;
-  gap: 20px;
-  position: relative;
-`;
-const Close = styled.div`
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  cursor: pointer;
-  color: white;
-`;
-const Title = styled.h1`
-  text-align: center;
-  color: white;
+  background-color: #fafafa;
+  padding: 20px 50px;
+  border: 1px solid black;
+  gap: 10px;
+  color: black;
 `;
 
-const Button = styled.button`
-  border-radius: 3px;
-  border: none;
-  padding: 10px 20px;
-  font-weight: 500;
-  cursor: pointer;
-  background-color: #202020;
-  color: white;
+const Title = styled.h1`
+  font-size: 20px;
 `;
 
 const Upload = ({ setOpen }) => {
@@ -58,6 +40,7 @@ const Upload = ({ setOpen }) => {
     imgUrl: "",
     videoUrl: "",
   });
+  const navigate = useNavigate();
 
   const handleUpload = async (e) => {
     e.preventDefault();
@@ -65,7 +48,7 @@ const Upload = ({ setOpen }) => {
     try {
       const res = await axios.post("videos", {
         title: video.title,
-        desc: video.title,
+        desc: video.desc,
         imgUrl: video.imgUrl,
         videoUrl: video.videoUrl,
         views: 0,
@@ -75,6 +58,7 @@ const Upload = ({ setOpen }) => {
       });
     } catch (err) {}
     alert("Video Uploaded Succesfully");
+    navigate("/");
   };
 
   function handle(e) {
@@ -87,37 +71,72 @@ const Upload = ({ setOpen }) => {
   return (
     <Container>
       <Wrapper>
-        <Close onClick={() => setOpen()}>X</Close>
         <Title>Upload a new video</Title>
-        <input
+        {/* <input
           onChange={(e) => handle(e)}
           type="text"
           id="title"
           value={video.text}
           placeholder="Enter title"
-        ></input>
-        <input
+        ></input> */}
+        <TextField
+          label="Title"
+          variant="outlined"
+          onChange={(e) => handle(e)}
+          type="text"
+          id="title"
+          value={video.text}
+        />
+        {/* <input
           onChange={(e) => handle(e)}
           type="text"
           id="videoUrl"
           placeholder="Enter video URL (embedded URL)"
           value={video.videoUrl}
-        ></input>
-        <input
+        ></input> */}
+        <TextField
+          label="Video URL (Embedded URL)"
+          variant="outlined"
+          onChange={(e) => handle(e)}
+          type="text"
+          id="videoUrl"
+          value={video.videoUrl}
+        />
+        {/* <input
           onChange={(e) => handle(e)}
           type="text"
           id="imgUrl"
           placeholder="Enter thumbnail URL"
           value={video.imgUrl}
-        ></input>
-        <input
+        ></input> */}
+        <TextField
+          label="Thumbnail URL"
+          variant="outlined"
+          onChange={(e) => handle(e)}
+          type="text"
+          id="imgUrl"
+          placeholder="Enter thumbnail URL"
+          value={video.imgUrl}
+        />
+        {/* <input
           onChange={(e) => handle(e)}
           type="text"
           id="desc"
           placeholder="Enter description"
           value={video.desc}
-        ></input>
-        <Button onClick={(e) => handleUpload(e)}>Upload</Button>
+        ></input> */}
+        <TextField
+          label="Description"
+          variant="outlined"
+          onChange={(e) => handle(e)}
+          type="text"
+          id="desc"
+          placeholder="Enter description"
+          value={video.desc}
+        />
+        <Button variant="contained" onClick={(e) => handleUpload(e)}>
+          Upload
+        </Button>
       </Wrapper>
     </Container>
   );

@@ -4,46 +4,31 @@ import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import { loginFailure, loginStart, loginSuccess } from "../redux/userSlice";
 import { useNavigate } from "react-router-dom";
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
 
 const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
   height: calc(100vh - 56px);
-  background-color: #202020;
-  color: white;
+  background-color: #fafafa;
+  color: black;
 `;
 
 const Wrapper = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
-  background-color: #202020;
+  background-color: #fafafa;
   padding: 20px 50px;
-  border: 1px solid white;
+  border: 1px solid black;
   gap: 10px;
-  color: white;
+  color: black;
 `;
 
 const Title = styled.h1`
-  font-size: 24px;
-`;
-
-const Input = styled.input`
-  border: 1px solid white;
-  border-radius: 3px;
-  padding: 10px;
-  background-color: transparent;
-  color: white;
-`;
-
-const Button = styled.button`
-  border-radius: 3px;
-  border: none;
-  padding: 10px 20px;
-  font-weight: 500;
-  cursor: pointer;
-  background-color: grey;
+  font-size: 20px;
 `;
 
 const SignIn = () => {
@@ -76,6 +61,7 @@ const SignIn = () => {
       alert(
         "Your account has been created sucesfully, Continue Watching Highlights !!"
       );
+      navigate("/");
     } catch (err) {}
   };
 
@@ -83,32 +69,44 @@ const SignIn = () => {
     <Container>
       <Wrapper>
         <Title>Sign In</Title>
-        <Input
-          placeholder="username"
+
+        <TextField
+          label="username"
           id="name"
           onChange={(e) => setName(e.target.value)}
-        ></Input>
-        <Input
-          placeholder="password"
+        ></TextField>
+
+        <TextField
+          label="password"
           type="password"
           onChange={(e) => setPassword(e.target.value)}
-        ></Input>
-        <Button onClick={handleLogin}>Login</Button>
+        ></TextField>
+
+        <Button variant="contained" onClick={handleLogin}>
+          Sign In
+        </Button>
+
         <Title>Join HighlighTube</Title>
-        <Input
-          placeholder="username"
+
+        <TextField
+          label="username"
+          id="name"
           onChange={(e) => setName(e.target.value)}
-        ></Input>
-        <Input
-          placeholder="email"
+        ></TextField>
+
+        <TextField
+          label="email"
           onChange={(e) => setEmail(e.target.value)}
-        ></Input>
-        <Input
-          placeholder="password"
+        ></TextField>
+
+        <TextField
+          label="password"
           type="password"
           onChange={(e) => setPassword(e.target.value)}
-        ></Input>
-        <Button onClick={handleRegister}>Register</Button>
+        ></TextField>
+        <Button variant="contained" onClick={handleRegister}>
+          Register
+        </Button>
       </Wrapper>
     </Container>
   );

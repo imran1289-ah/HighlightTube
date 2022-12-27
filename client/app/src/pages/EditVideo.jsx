@@ -68,16 +68,18 @@ const EditVideo = () => {
                     to={`/${video._id}`}
                     style={{ textDecoration: "none", color: "inherit" }}
                   >
-                    <Button variant="contained">Edit</Button>
+                    <Button variant="contained">Update</Button>
                   </Link>
-
+                  <br />
+                  <br />
                   <Button
                     variant="contained"
                     onClick={() => {
                       handleDelete(video._id);
                     }}
+                    color="error"
                   >
-                    Delete
+                    Remove
                   </Button>
                 </TableCell>
               </TableRow>

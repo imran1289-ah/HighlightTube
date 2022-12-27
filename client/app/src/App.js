@@ -11,6 +11,7 @@ import EditProfile from "./pages/EditProfile";
 import EditVideo from "./pages/EditVideo";
 import EditSingleVideo from "./pages/EditSingleVideo";
 import SubscribedChannels from "./pages/SubscribedChannels";
+import Upload from "./components/Upload";
 
 const Container = styled.div`
   display: flex;
@@ -58,6 +59,7 @@ function App() {
                     path="subs"
                     element={<SubscribedChannels></SubscribedChannels>}
                   ></Route>
+                  <Route path="upload" element={<Upload></Upload>}></Route>
                 </Route>
               </Routes>
             </Wrapper>
