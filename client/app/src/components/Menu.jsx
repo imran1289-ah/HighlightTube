@@ -16,7 +16,7 @@ import SubscriptionsIcon from "@mui/icons-material/Subscriptions";
 
 const Container = styled.div`
   flex: 1;
-  background-color: #202020;
+  background-color: #fafafa;
   height: 100vh;
   color: white;
   font-size: 14px;
@@ -47,13 +47,19 @@ const Item = styled.div`
   cursor: pointer;
   padding: 7.5px 0px;
   &:hover {
-    background-color: grey;
+    background-color: #90caf9;
   }
+  color: black;
 `;
 
 const Hr = styled.div`
   margin: 15px 0px;
   border: 0.5px solid #373737;
+`;
+
+const Image = styled.img`
+  width: 38px;
+  height: 35px;
 `;
 
 export const Menu = () => {
@@ -79,8 +85,8 @@ export const Menu = () => {
         <Wrapper>
           <Link to="/" style={{ textDecoration: "none", color: "inherit" }}>
             <Item>
-              <HomeIcon />
-              Home
+              <Image src="https://cdn.dribbble.com/users/479536/screenshots/14210962/ht_logos_xler8brain_4x.jpg"></Image>
+              HighlightTube
             </Item>
           </Link>
 
