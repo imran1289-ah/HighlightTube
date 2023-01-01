@@ -10,14 +10,15 @@ import { useEffect } from "react";
 import axios from "axios";
 import { dislike, fetchSuccess, like } from "../redux/videoSlice";
 import { subscription } from "../redux/userSlice";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import FavoriteIcon from "@mui/icons-material/Favorite";
 import ThumbDownOffAltOutlinedIcon from "@mui/icons-material/ThumbDownOffAltOutlined";
+import ThumbUpIcon from "@mui/icons-material/ThumbUp";
+import ShareIcon from "@mui/icons-material/Share";
+import FileDownloadIcon from "@mui/icons-material/FileDownload";
 
 const Container = styled.div`
   display: flex;
   gap: 24px;
-  background-color: #202020;
+  background-color: white;
   height: 100%;
 `;
 const Content = styled.div`
@@ -55,7 +56,7 @@ const Subscribe = styled.button`
 const ChannelDetail = styled.div`
   display: flex;
   flex-direction: column;
-  color: white;
+  color: black;
 `;
 
 const ChannelName = styled.span`
@@ -65,7 +66,7 @@ const ChannelName = styled.span`
 const ChannelCounter = styled.span`
   margin-top: 5px;
   margin-bottom: 20px;
-  color: white;
+  color: black;
   font-size: 12px;
 `;
 
@@ -80,7 +81,7 @@ const Title = styled.div`
   font-weight: 400;
   margin-top: 20px;
   margin-bottom: 10px;
-  color: white;
+  color: black;
 `;
 
 const Details = styled.div`
@@ -89,12 +90,12 @@ const Details = styled.div`
   justify-content: space-between;
 `;
 const Info = styled.div`
-  color: white;
+  color: black;
 `;
 const Buttons = styled.div`
   display: flex;
   gap: 20px;
-  color: white;
+  color: black;
 `;
 const Button = styled.div`
   display: flex;
@@ -109,7 +110,7 @@ const VideoFrame = styled.video`
   object-fit: cover;
 `;
 
-const Video = () => {
+const Video = ({ type }) => {
   const { currentUser } = useSelector((state) => state.user);
   const { currentVideo } = useSelector((state) => state.video);
   const dispatch = useDispatch();
@@ -117,6 +118,8 @@ const Video = () => {
   const path = useLocation().pathname.split("/")[2];
 
   const [channels, setChannels] = useState({});
+
+  const [videos, setVideos] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -133,6 +136,14 @@ const Video = () => {
     };
     fetchData();
   }, [path, dispatch]);
+
+  useEffect(() => {
+    const fetchVideos = async () => {
+      const res = await axios.get(`/videos/recommend`);
+      setVideos(res.data);
+    };
+    fetchVideos();
+  }, [type]);
 
   const handleSub = async () => {
     currentUser.subscribedUsers.includes(channels._id)
@@ -164,32 +175,33 @@ const Video = () => {
       <Content>
         <VideoWrapper>
           <iframe
-            width="100%"
-            height="600"
+            width="930"
+            height="500"
             src={currentVideo.videoUrl}
             title="YouTube video player"
             frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
           ></iframe>
         </VideoWrapper>
         <Title>{currentVideo.title}</Title>
         <Details>
           <Info>{currentVideo.views} views</Info>
           <Buttons>
+            <FileDownloadIcon></FileDownloadIcon>
+            <ShareIcon></ShareIcon>
             {currentUser ? (
               <Button onClick={handleLike}>
                 {currentVideo.likes?.includes(currentUser._id) ? (
-                  <FavoriteIcon />
+                  <ThumbUpIcon />
                 ) : (
-                  <FavoriteBorderIcon />
+                  <ThumbUpIcon />
                 )}{" "}
                 {currentVideo.likes?.length}
               </Button>
             ) : (
               <Button>
                 {currentVideo.likes?.length}
-                <FavoriteIcon onClick={notLiked} />
+                <ThumbUpIcon onClick={notLiked} />
               </Button>
             )}
 
@@ -200,10 +212,11 @@ const Video = () => {
                 ) : (
                   <ThumbDownOffAltOutlinedIcon />
                 )}{" "}
+                {currentVideo.dislikes?.length}
               </Button>
             ) : (
               <Button>
-                {currentVideo.dislikes}
+                {currentVideo.dislikes?.length}
                 <ThumbDownIcon onClick={notLiked} />
               </Button>
             )}
@@ -234,12 +247,11 @@ const Video = () => {
         <Comments videoId={currentVideo._id}></Comments>
       </Content>
 
-      {/* <Recommendation>
-        <Card></Card>
-        <Card></Card>
-        <Card></Card>
-        <Card></Card>
-      </Recommendation> */}
+      <Recommendation>
+        {videos.map((video) => (
+          <Card key={video._id} video={video} />
+        ))}
+      </Recommendation>
     </Container>
   );
 };

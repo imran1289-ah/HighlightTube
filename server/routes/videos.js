@@ -8,6 +8,7 @@ import {
   getUserVideos,
   getVideo,
   random,
+  recommend,
   subbed,
   updateVideo,
 } from "../controllers/video.js";
@@ -22,6 +23,7 @@ router.get("/find/:id", getVideo);
 router.put("/view/:id", addView);
 router.get("/random", random);
 router.get("/subscribed", verifyToken, subbed);
+router.get("/recommend", verifyToken, recommend);
 router.get("/search", getBySearch);
 router.get("/tags", getByTag);
 router.get("/uservideos/:userId", getUserVideos);

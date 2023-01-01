@@ -5,6 +5,7 @@ import styled from "styled-components";
 import { Comment } from "./Comment";
 import axios from "axios";
 import { useSelector } from "react-redux";
+import Button from "@mui/material/Button";
 
 const Container = styled.div``;
 
@@ -41,7 +42,9 @@ export const Comments = ({ videoId }) => {
     <Container>
       <NewComment>
         <Input placeholder="Add a comment"></Input>
-        <button onClick>Send comment</button>
+        <Button onClick variant="contained">
+          Send Comment
+        </Button>
       </NewComment>
       {comments.map((comment) => (
         <Comment key={comment._id} comment={comment}></Comment>

@@ -1,7 +1,8 @@
 # HighlightTube
 
 ## What is it
-A video streaming service (similar to Youtube) for users to post and watch their favourite sports highlights (Basketball, Soccer, Hockey etc)
+
+HighlighTube is a video streaming service allowing users to post and watch their favourite sports highlights. Users can create an account, upload videos of their favourite highlights, subscribe to their favourite channels and can post comments.
 
 ## Technologies Used
 
@@ -9,12 +10,14 @@ A video streaming service (similar to Youtube) for users to post and watch their
 - MongoDB
 - Express
 - NodeJS
+- Material UI
+- JWT
+- Redux
 
 ## Screenshots
 
-In progress. Currently working on the Backend
+Coming Soon
 
 ## How to run the application
 
 Avalaible soon
-
