@@ -13,11 +13,12 @@ const NewComment = styled.div`
   display: flex;
   align-items: center;
   gap: 10px;
+  color: black;
 `;
 
 const Input = styled.input`
   border: none;
-  border-bottom: 1px solid white;
+  border-bottom: 1px solid black;
   background-color: transparent;
   outline: none;
   padding: 5px;
@@ -26,7 +27,16 @@ const Input = styled.input`
 
 export const Comments = ({ videoId }) => {
   const { currentUser } = useSelector((state) => state.user);
+
   const [comments, setComments] = useState([]);
+
+  const [newComments, setNewComments] = useState([
+    {
+      userId: currentUser._id,
+      videoId: videoId,
+      desc: "",
+    },
+  ]);
 
   useEffect(() => {
     const fetchComments = async () => {
@@ -41,10 +51,8 @@ export const Comments = ({ videoId }) => {
   return (
     <Container>
       <NewComment>
-        <Input placeholder="Add a comment"></Input>
-        <Button onClick variant="contained">
-          Send Comment
-        </Button>
+        <Input id="desc" placeholder="Add a comment" type="text"></Input>
+        <Button variant="contained">Send Comment</Button>
       </NewComment>
       {comments.map((comment) => (
         <Comment key={comment._id} comment={comment}></Comment>

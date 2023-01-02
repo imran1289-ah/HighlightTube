@@ -17,17 +17,17 @@ const Details = styled.div`
 const Name = styled.span`
   font-size: 13px;
   font-weight: 500;
-  color: white;
+  color: black;
 `;
 const Date = styled.span`
   font-size: 12px;
   font-weight: 400;
-  color: white;
+  color: black;
   margin-left: 5px;
 `;
 const Text = styled.span`
   font-size: 14px;
-  color: white;
+  color: black;
 `;
 
 export const Comment = ({ comment }) => {
