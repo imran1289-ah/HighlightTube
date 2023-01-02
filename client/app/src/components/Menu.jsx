@@ -13,6 +13,7 @@ import { logout } from "../redux/userSlice";
 import LoginIcon from "@mui/icons-material/Login";
 import { useNavigate } from "react-router-dom";
 import SubscriptionsIcon from "@mui/icons-material/Subscriptions";
+import AppRegistrationIcon from "@mui/icons-material/AppRegistration";
 
 const Container = styled.div`
   flex: 1;
@@ -105,14 +106,8 @@ export const Menu = () => {
                 <LogoutIcon onClick={handleLogout}></LogoutIcon>
                 Logout
               </Item>
-              <Link
-                to="/upload"
-                style={{ textDecoration: "none", color: "inherit" }}
-              >
-                <Item>
-                  <UploadIcon></UploadIcon>Upload videos
-                </Item>
-              </Link>
+              <Hr></Hr>
+
               <Item>
                 <Link
                   to="/editvideo"
@@ -133,19 +128,41 @@ export const Menu = () => {
                   My subscribed channels
                 </Item>
               </Link>
-            </div>
-          ) : (
-            <Item>
+              <Hr></Hr>
               <Link
-                to="/signin"
+                to="/upload"
                 style={{ textDecoration: "none", color: "inherit" }}
               >
                 <Item>
-                  <LoginIcon></LoginIcon>
-                  Login
+                  <UploadIcon></UploadIcon>Upload videos
                 </Item>
               </Link>
-            </Item>
+            </div>
+          ) : (
+            <div>
+              <Item>
+                <Link
+                  to="/signin"
+                  style={{ textDecoration: "none", color: "inherit" }}
+                >
+                  <Item>
+                    <LoginIcon></LoginIcon>
+                    Login
+                  </Item>
+                </Link>
+              </Item>
+              <Item>
+                <Link
+                  to="/signin"
+                  style={{ textDecoration: "none", color: "inherit" }}
+                >
+                  <Item>
+                    <AppRegistrationIcon></AppRegistrationIcon>
+                    Register
+                  </Item>
+                </Link>
+              </Item>
+            </div>
           )}
         </Wrapper>
       </Container>

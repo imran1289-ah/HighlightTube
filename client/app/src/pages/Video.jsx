@@ -10,7 +10,7 @@ import { useEffect } from "react";
 import axios from "axios";
 import { dislike, fetchSuccess, like } from "../redux/videoSlice";
 import { subscription } from "../redux/userSlice";
-import ThumbDownOffAltOutlinedIcon from "@mui/icons-material/ThumbDownOffAltOutlined";
+
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import ShareIcon from "@mui/icons-material/Share";
 import FileDownloadIcon from "@mui/icons-material/FileDownload";
@@ -170,6 +170,10 @@ const Video = ({ type }) => {
     alert("Please login or create an account to like/dislike this video");
   }
 
+  function refreshPage() {
+    window.location.reload();
+  }
+
   return (
     <Container>
       <Content>
@@ -210,7 +214,7 @@ const Video = ({ type }) => {
                 {currentVideo.dislikes?.includes(currentUser?._id) ? (
                   <ThumbDownIcon />
                 ) : (
-                  <ThumbDownOffAltOutlinedIcon />
+                  <ThumbDownIcon />
                 )}{" "}
                 {currentVideo.dislikes?.length}
               </Button>
@@ -249,7 +253,9 @@ const Video = ({ type }) => {
 
       <Recommendation>
         {videos.map((video) => (
-          <Card key={video._id} video={video} />
+          <Button onClick={refreshPage}>
+            <Card key={video._id} video={video} />
+          </Button>
         ))}
       </Recommendation>
     </Container>
