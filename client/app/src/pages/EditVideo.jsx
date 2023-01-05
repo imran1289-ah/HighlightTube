@@ -37,8 +37,10 @@ const EditVideo = () => {
   const handleDelete = async (videoID) => {
     try {
       const res = await axios.delete(`/videos/${videoID}`);
-      alert("video deleted");
-    } catch (err) {}
+      alert("Video Deleted");
+    } catch (err) {
+      alert("Video Deleted Unsuccessfully. Please try again");
+    }
   };
 
   return (

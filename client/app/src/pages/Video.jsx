@@ -44,13 +44,14 @@ const ChannelInfo = styled.div`
 `;
 
 const Subscribe = styled.button`
-  background-color: #cc1a00;
+  background-color: #1976d2;
   font-weight: 500;
   color: white;
   border: none;
   border-radius: 3px;
   height: max-content;
   padding: 10px 20px;
+  margin-right: 5px;
 `;
 
 const ChannelDetail = styled.div`
@@ -170,6 +171,10 @@ const Video = ({ type }) => {
     alert("Please login or create an account to like/dislike this video");
   }
 
+  function notComment() {
+    alert("Please login or create an account to comment on this video");
+  }
+
   function refreshPage() {
     window.location.reload();
   }
@@ -238,13 +243,19 @@ const Video = ({ type }) => {
             </ChannelDetail>
           </ChannelInfo>
           {currentUser ? (
-            <Subscribe onClick={handleSub}>
-              {currentUser.subscribedUsers?.includes(channels._id)
-                ? "SUBSCRIBED"
-                : "SUBSCRIBE"}
-            </Subscribe>
+            <div>
+              <Subscribe onClick={handleSub}>
+                {currentUser.subscribedUsers?.includes(channels._id)
+                  ? "SUBSCRIBED"
+                  : "SUBSCRIBE"}
+              </Subscribe>
+              <Subscribe>SEND COMMENT</Subscribe>
+            </div>
           ) : (
-            <Subscribe onClick={notSubbed}>SUBSCRIBE</Subscribe>
+            <div>
+              <Subscribe onClick={notSubbed}>SUBSCRIBE</Subscribe>
+              <Subscribe onClick={notComment}>SEND COMMENT</Subscribe>
+            </div>
           )}
         </Channel>
         <Hr></Hr>

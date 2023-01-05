@@ -69,7 +69,9 @@ const EditProfile = () => {
       const res1 = await axios.post("auth/signin", { name, password });
       dispatch(loginSuccess(res1.data));
       navigate("/");
-    } catch (err) {}
+    } catch (err) {
+      alert("Profile Updated Unsuccesfully. Please try again ");
+    }
   };
 
   return (

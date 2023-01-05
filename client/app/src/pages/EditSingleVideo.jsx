@@ -48,9 +48,11 @@ const EditSingleVideo = () => {
         desc,
       });
 
-      alert("Video Updated Succesfully");
+      alert("Video Updated Successfully");
       navigate("/editvideo");
-    } catch (err) {}
+    } catch (err) {
+      alert("Video Updated Unsuccessfully. Please try again");
+    }
   };
 
   return (

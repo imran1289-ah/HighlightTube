@@ -12,6 +12,7 @@ import EditVideo from "./pages/EditVideo";
 import EditSingleVideo from "./pages/EditSingleVideo";
 import SubscribedChannels from "./pages/SubscribedChannels";
 import Upload from "./components/Upload";
+import Search from "./pages/Search";
 
 const Container = styled.div`
   display: flex;
@@ -60,6 +61,7 @@ function App() {
                     element={<SubscribedChannels></SubscribedChannels>}
                   ></Route>
                   <Route path="upload" element={<Upload></Upload>}></Route>
+                  <Route path="search" element={<Search></Search>}></Route>
                 </Route>
               </Routes>
             </Wrapper>

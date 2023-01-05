@@ -48,6 +48,7 @@ const SignIn = () => {
       navigate("/");
     } catch (err) {
       dispatch(loginFailure());
+      alert("Login unsuccessful. Please try again");
     }
   };
 
@@ -62,7 +63,9 @@ const SignIn = () => {
         "Your account has been created sucesfully, Continue Watching Highlights !!"
       );
       navigate("/");
-    } catch (err) {}
+    } catch (err) {
+      alert("Account created unsuccessfully. Please try again");
+    }
   };
 
   return (

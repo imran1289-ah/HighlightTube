@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Icon from "../image/logo.png";
 import { useSelector } from "react-redux";
 import Box from "@mui/material/Box";
@@ -24,8 +24,30 @@ const Wrapper = styled.div`
   position: relative;
 `;
 
+const Button = styled.button`
+  padding: 5px 15px;
+  background-color: transparent;
+  border: 1px solid transparent;
+  color: #3ea6ff;
+  border-radius: 3px;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+`;
+
 export const Navbar = () => {
+  const navigate = useNavigate();
   const { currentUser } = useSelector((state) => state.user);
+  const [q, setQ] = useState("");
+
+  function handleKeyPress(e) {
+    if (e.keyCode === 13) {
+      e.preventDefault();
+    }
+  }
+
   return (
     <Container>
       <Wrapper>
@@ -37,9 +59,17 @@ export const Navbar = () => {
           noValidate
           autoComplete="off"
         >
-          <TextField id="outlined-basic" label="Search" variant="outlined" />
+          <TextField
+            id="outlined-basic"
+            label="Search"
+            variant="outlined"
+            onChange={(e) => setQ(e.target.value)}
+            onKeyDown={(e) => handleKeyPress(e)}
+          />
         </Box>
-        <SearchIcon></SearchIcon>
+        <Button onClick={() => navigate(`/search?q=${q}`)}>
+          <SearchIcon></SearchIcon>
+        </Button>
       </Wrapper>
     </Container>
   );
