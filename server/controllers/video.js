@@ -76,7 +76,7 @@ export const random = async (req, res, next) => {
 
 export const recommend = async (req, res, next) => {
   try {
-    const recommendedVideos = await Video.aggregate([{ $sample: { size: 3 } }]);
+    const recommendedVideos = await Video.aggregate([{ $sample: { size: 5 } }]);
     res.status(200).json(recommendedVideos);
   } catch (err) {
     next(err);

@@ -25,10 +25,13 @@ export const Comments = ({ videoId }) => {
   }, [videoId]);
 
   return (
-    <Container>
-      {comments.map((comment) => (
-        <Comment key={comment._id} comment={comment}></Comment>
-      ))}
-    </Container>
+    <div>
+      Comments
+      <Container>
+        {comments.map((comment) => (
+          <Comment key={comment._id} comment={comment}></Comment>
+        ))}
+      </Container>
+    </div>
   );
 };

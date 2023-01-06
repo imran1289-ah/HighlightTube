@@ -4,7 +4,7 @@ import ThumbDownIcon from "@mui/icons-material/ThumbDown";
 import { Comments } from "../components/Comments";
 import Card from "../components/Card";
 import { useDispatch, useSelector } from "react-redux";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useState } from "react";
 import { useEffect } from "react";
 import axios from "axios";
@@ -14,6 +14,7 @@ import { subscription } from "../redux/userSlice";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import ShareIcon from "@mui/icons-material/Share";
 import FileDownloadIcon from "@mui/icons-material/FileDownload";
+import AddComment from "./AddComment";
 
 const Container = styled.div`
   display: flex;
@@ -249,7 +250,12 @@ const Video = ({ type }) => {
                   ? "SUBSCRIBED"
                   : "SUBSCRIBE"}
               </Subscribe>
-              <Subscribe>SEND COMMENT</Subscribe>
+              <Link
+                to="/addcomment"
+                style={{ textDecoration: "none", color: "inherit" }}
+              >
+                <Subscribe>SEND COMMENT</Subscribe>
+              </Link>
             </div>
           ) : (
             <div>

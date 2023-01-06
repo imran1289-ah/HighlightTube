@@ -13,6 +13,8 @@ import EditSingleVideo from "./pages/EditSingleVideo";
 import SubscribedChannels from "./pages/SubscribedChannels";
 import Upload from "./components/Upload";
 import Search from "./pages/Search";
+import AddComment from "./pages/AddComment";
+import DeleteComment from "./pages/DeleteComment";
 
 const Container = styled.div`
   display: flex;
@@ -62,6 +64,16 @@ function App() {
                   ></Route>
                   <Route path="upload" element={<Upload></Upload>}></Route>
                   <Route path="search" element={<Search></Search>}></Route>
+                  <Route
+                    path="addcomment"
+                    element={<AddComment></AddComment>}
+                  ></Route>
+                  <Route path="comments">
+                    <Route
+                      path=":id"
+                      element={<DeleteComment></DeleteComment>}
+                    ></Route>
+                  </Route>
                 </Route>
               </Routes>
             </Wrapper>
