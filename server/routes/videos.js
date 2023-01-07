@@ -24,7 +24,7 @@ router.get("/find/:id", getVideo);
 router.put("/view/:id", addView);
 router.get("/random", random);
 router.get("/subscribed", verifyToken, subbed);
-router.get("/recommend", verifyToken, recommend);
+router.get("/recommend", recommend);
 router.get("/search", search);
 router.get("/tags", getByTag);
 router.get("/uservideos/:userId", getUserVideos);
