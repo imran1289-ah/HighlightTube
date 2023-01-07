@@ -133,6 +133,7 @@ const Upload = ({ setOpen }) => {
           id="desc"
           placeholder="Enter description"
           value={video.desc}
+          multiline
         />
         <Button variant="contained" onClick={(e) => handleUpload(e)}>
           Upload
