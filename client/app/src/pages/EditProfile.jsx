@@ -46,6 +46,7 @@ const EditProfile = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  //Api call to update account
   const handleUpdate = async (e) => {
     e.preventDefault();
     dispatch(loginStart());
@@ -54,17 +55,14 @@ const EditProfile = () => {
       document.getElementById("pass2").value
     ) {
       alert("Password did not match. Please try again");
-
       return;
     }
-
     try {
       const res = await axios.put(`users/${currentUser._id}`, {
         name,
         email,
         password,
       });
-
       alert("Profile Updated Succesfully");
       const res1 = await axios.post("auth/signin", { name, password });
       dispatch(loginSuccess(res1.data));
@@ -78,33 +76,18 @@ const EditProfile = () => {
     <Container>
       <Wrapper>
         <Title>Update Profile</Title>
-        {/* <Input
-          placeholder="username"
-          onChange={(e) => setName(e.target.value)}
-        ></Input> */}
         <TextField
           id="outlined-basic"
           label="username"
           variant="outlined"
           onChange={(e) => setName(e.target.value)}
         />
-        {/* <Input
-          placeholder="email"
-          onChange={(e) => setEmail(e.target.value)}
-        ></Input> */}
         <TextField
           id="outlined-basic"
           label="email"
           variant="outlined"
           onChange={(e) => setEmail(e.target.value)}
         />
-        {/*         
-        <Input
-          placeholder="password"
-          type="password"
-          id="pass1"
-          onChange={(e) => setPassword(e.target.value)}
-        ></Input> */}
         <TextField
           label="password"
           variant="outlined"
@@ -112,18 +95,12 @@ const EditProfile = () => {
           id="pass1"
           onChange={(e) => setPassword(e.target.value)}
         />
-        {/* <Input
-          placeholder="Enter password again"
-          type="password"
-          id="pass2"
-        ></Input> */}
         <TextField
           label="Enter password again"
           variant="outlined"
           type="password"
           id="pass2"
         />
-
         <Button variant="contained" onClick={handleUpdate}>
           Update
         </Button>

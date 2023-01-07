@@ -47,13 +47,13 @@ const DeleteComment = () => {
   const { currentUser } = useSelector((state) => state.user);
   const [comment, setComment] = useState([]);
   const path = useLocation().pathname.split("/")[2];
-
   const navigate = useNavigate();
 
   function handleNo() {
     navigate(`/video/${currentVideo._id}`);
   }
 
+  //Api call to delete comment
   const handleYes = async () => {
     try {
       const res = await axios.delete(`/comments/${path}`);
@@ -61,7 +61,6 @@ const DeleteComment = () => {
     } catch (err) {
       alert("Comment Deleted Unssuccefully. Please try again");
     }
-
     navigate(`/video/${currentVideo._id}`);
   };
 

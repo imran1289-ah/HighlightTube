@@ -39,12 +39,11 @@ const AddComment = () => {
     videoId: currentVideo._id,
     desc: "",
   });
-
   const navigate = useNavigate();
 
+  //Api call to add comment
   const handleComment = async (e) => {
     e.preventDefault();
-
     try {
       const res = await axios.post("comments", {
         userId: currentUser._id,
@@ -55,7 +54,6 @@ const AddComment = () => {
     } catch (err) {
       alert("Comment Sent Unsuccessfully. Please try again");
     }
-
     navigate(`/video/${currentVideo._id}`);
   };
 

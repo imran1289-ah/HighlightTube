@@ -17,6 +17,7 @@ const Search = () => {
   const [videos, setVideos] = useState([]);
   const query = useLocation().search;
 
+  //Api call to get searched video
   useEffect(() => {
     const fetchVideos = async () => {
       const res = await axios.get(`/videos/search${query}`);

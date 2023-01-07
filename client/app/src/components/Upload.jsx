@@ -42,6 +42,7 @@ const Upload = ({ setOpen }) => {
   });
   const navigate = useNavigate();
 
+  //Api call to add video
   const handleUpload = async (e) => {
     e.preventDefault();
 
@@ -72,13 +73,6 @@ const Upload = ({ setOpen }) => {
     <Container>
       <Wrapper>
         <Title>Upload a new video</Title>
-        {/* <input
-          onChange={(e) => handle(e)}
-          type="text"
-          id="title"
-          value={video.text}
-          placeholder="Enter title"
-        ></input> */}
         <TextField
           label="Title"
           variant="outlined"
@@ -87,13 +81,6 @@ const Upload = ({ setOpen }) => {
           id="title"
           value={video.text}
         />
-        {/* <input
-          onChange={(e) => handle(e)}
-          type="text"
-          id="videoUrl"
-          placeholder="Enter video URL (embedded URL)"
-          value={video.videoUrl}
-        ></input> */}
         <TextField
           label="Video URL (Embedded URL)"
           variant="outlined"
@@ -102,13 +89,6 @@ const Upload = ({ setOpen }) => {
           id="videoUrl"
           value={video.videoUrl}
         />
-        {/* <input
-          onChange={(e) => handle(e)}
-          type="text"
-          id="imgUrl"
-          placeholder="Enter thumbnail URL"
-          value={video.imgUrl}
-        ></input> */}
         <TextField
           label="Thumbnail URL"
           variant="outlined"
@@ -118,13 +98,6 @@ const Upload = ({ setOpen }) => {
           placeholder="Enter thumbnail URL"
           value={video.imgUrl}
         />
-        {/* <input
-          onChange={(e) => handle(e)}
-          type="text"
-          id="desc"
-          placeholder="Enter description"
-          value={video.desc}
-        ></input> */}
         <TextField
           label="Description"
           variant="outlined"

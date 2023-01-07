@@ -36,18 +36,16 @@ const EditSingleVideo = () => {
   const [title, setTitle] = useState({});
   const [desc, setDescription] = useState({});
   const path = useLocation().pathname.split("/")[1];
-
   const navigate = useNavigate();
 
+  //Api call to update video
   const handleUpdate = async (e) => {
     e.preventDefault();
-
     try {
       const res = await axios.put(`videos/${path}`, {
         title,
         desc,
       });
-
       alert("Video Updated Successfully");
       navigate("/editvideo");
     } catch (err) {
@@ -59,20 +57,12 @@ const EditSingleVideo = () => {
     <Container>
       <Wrapper>
         <Title>Update Video</Title>
-        {/* <Input
-          placeholder="title"
-          onChange={(e) => setTitle(e.target.value)}
-        ></Input> */}
         <TextField
           id="outlined-basic"
           label="Title"
           variant="outlined"
           onChange={(e) => setTitle(e.target.value)}
         />
-        {/* <Input
-          placeholder="description"
-          onChange={(e) => setDescription(e.target.value)}
-        ></Input> */}
         <TextField
           id="outlined-basic"
           label="Description"

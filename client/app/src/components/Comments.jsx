@@ -11,9 +11,9 @@ const Container = styled.div``;
 
 export const Comments = ({ videoId }) => {
   const { currentUser } = useSelector((state) => state.user);
-
   const [comments, setComments] = useState([]);
 
+  //Api call to get comments
   useEffect(() => {
     const fetchComments = async () => {
       try {

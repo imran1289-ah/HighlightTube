@@ -38,6 +38,7 @@ const SignIn = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  //Api call to authenticate user
   const handleLogin = async (e) => {
     e.preventDefault();
     dispatch(loginStart());
@@ -52,6 +53,7 @@ const SignIn = () => {
     }
   };
 
+  //Api call to create account
   const handleRegister = async (e) => {
     e.preventDefault();
     dispatch(loginStart());
@@ -72,36 +74,29 @@ const SignIn = () => {
     <Container>
       <Wrapper>
         <Title>Sign In</Title>
-
         <TextField
           label="username"
           id="name"
           onChange={(e) => setName(e.target.value)}
         ></TextField>
-
         <TextField
           label="password"
           type="password"
           onChange={(e) => setPassword(e.target.value)}
         ></TextField>
-
         <Button variant="contained" onClick={handleLogin}>
           Sign In
         </Button>
-
         <Title>Join HighlighTube</Title>
-
         <TextField
           label="username"
           id="name"
           onChange={(e) => setName(e.target.value)}
         ></TextField>
-
         <TextField
           label="email"
           onChange={(e) => setEmail(e.target.value)}
         ></TextField>
-
         <TextField
           label="password"
           type="password"

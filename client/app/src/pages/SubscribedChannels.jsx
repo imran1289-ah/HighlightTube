@@ -16,6 +16,7 @@ const SubscribedChannels = () => {
   const { currentUser } = useSelector((state) => state.user);
   const [videos, setVideos] = useState([]);
 
+  //Api call to get subscribed channels videos
   useEffect(() => {
     const fetchVideos = async () => {
       const res = await axios.get(`/videos/subscribed/`);

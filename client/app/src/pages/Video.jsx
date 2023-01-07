@@ -116,13 +116,11 @@ const Video = ({ type }) => {
   const { currentUser } = useSelector((state) => state.user);
   const { currentVideo } = useSelector((state) => state.video);
   const dispatch = useDispatch();
-
   const path = useLocation().pathname.split("/")[2];
-
   const [channels, setChannels] = useState({});
-
   const [videos, setVideos] = useState([]);
 
+  //Api call to get video details
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -139,6 +137,7 @@ const Video = ({ type }) => {
     fetchData();
   }, [path, dispatch]);
 
+  //api call to get reccomended videos
   useEffect(() => {
     const fetchVideos = async () => {
       const res = await axios.get(`/videos/recommend`);
@@ -147,6 +146,7 @@ const Video = ({ type }) => {
     fetchVideos();
   }, [type]);
 
+  //api call to subscribe to channel
   const handleSub = async () => {
     currentUser.subscribedUsers.includes(channels._id)
       ? await axios.put(`/users/unsub/${channels._id}`)
@@ -154,24 +154,29 @@ const Video = ({ type }) => {
     dispatch(subscription(channels._id));
   };
 
+  //api call to like video
   const handleLike = async () => {
     await axios.put(`/users/like/${currentVideo._id}`);
     dispatch(like(currentUser._id));
   };
 
+  //api call to dislike video
   const handleDislike = async () => {
     await axios.put(`/users/dislike/${currentVideo._id}`);
     dispatch(dislike(currentUser._id));
   };
 
+  //if user not logged in
   function notSubbed() {
     alert("Please login or create an account to subscribe to this channel");
   }
 
+  //if user not logged in
   function notLiked() {
     alert("Please login or create an account to like/dislike this video");
   }
 
+  //if user not logged in
   function notComment() {
     alert("Please login or create an account to comment on this video");
   }

@@ -22,12 +22,7 @@ const Name = styled.span`
   font-weight: 500;
   color: black;
 `;
-const Date = styled.span`
-  font-size: 12px;
-  font-weight: 400;
-  color: black;
-  margin-left: 5px;
-`;
+
 const Text = styled.span`
   font-size: 14px;
   color: black;
@@ -52,11 +47,11 @@ const Wrapper = styled.div`
 `;
 
 export const Comment = ({ comment }) => {
-  const [channels, setChannels] = useState({});
   const { currentUser } = useSelector((state) => state.user);
-
+  const [channels, setChannels] = useState({});
   const navigate = useNavigate();
 
+  //api call to get comments of video
   useEffect(() => {
     const fetchComment = async () => {
       const res = await axios.get(`/users/find/${comment.userId}`);
@@ -65,6 +60,7 @@ export const Comment = ({ comment }) => {
     fetchComment();
   }, [comment.userId]);
 
+  //function to allow user to only delete their own comment
   function checkDeleteComment() {
     if (comment.userId === currentUser._id) {
       navigate(`/comments/${comment._id}`);

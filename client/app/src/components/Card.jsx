@@ -23,7 +23,6 @@ const Details = styled.div`
   color: black;
 `;
 
-const Texts = styled.div``;
 const Title = styled.h1`
   font-size: 16px;
   font-weight: 500;
@@ -44,6 +43,7 @@ const Info = styled.div`
 const Card = ({ video }) => {
   const [channels, setChannels] = useState({});
 
+  //Api call to get video details
   useEffect(() => {
     const fetchChannel = async () => {
       const res = await axios.get(`/users/find/${video.userId}`);

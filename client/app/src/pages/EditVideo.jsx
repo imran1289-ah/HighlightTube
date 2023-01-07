@@ -26,6 +26,7 @@ const EditVideo = () => {
   const { currentUser } = useSelector((state) => state.user);
   const [videos, setVideos] = useState([]);
 
+  //Api call to get user videos
   useEffect(() => {
     const fetchVideos = async () => {
       const res = await axios.get(`/videos/uservideos/${currentUser._id}`);
@@ -34,6 +35,7 @@ const EditVideo = () => {
     fetchVideos();
   });
 
+  //api call to delete video
   const handleDelete = async (videoID) => {
     try {
       const res = await axios.delete(`/videos/${videoID}`);

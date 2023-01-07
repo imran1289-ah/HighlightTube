@@ -14,6 +14,7 @@ const Container = styled.div`
 const Home = ({ type }) => {
   const [videos, setVideos] = useState([]);
 
+  //Api call to get videos
   useEffect(() => {
     const fetchVideos = async () => {
       const res = await axios.get(`/videos/random`);

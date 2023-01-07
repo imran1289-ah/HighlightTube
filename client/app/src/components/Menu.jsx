@@ -29,18 +29,6 @@ const Wrapper = styled.div`
   padding: 18px 26px;
 `;
 
-const Logo = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  font-weight: bold;
-  margin-bottom: 25px;
-`;
-
-const Img = styled.div`
-  height: 25px;
-`;
-
 const Item = styled.div`
   display: flex;
   align-items: center;
@@ -68,6 +56,7 @@ export const Menu = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  //Logout button functionality
   const handleLogout = async (e) => {
     e.preventDefault();
     try {
